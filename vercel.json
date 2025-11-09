@@ -1,0 +1,27 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
+      }
+    ],
+    "env": {
+      "GPT_ACTIONS_API_KEY": "@gpt_actions_api_key",
+      "STRIPE_SECRET_KEY": "@stripe_secret_key",
+      "STRIPE_PUBLISHABLE_KEY": "@stripe_publishable_key",
+      "STRIPE_PRICE_ID": "@stripe_price_id",
+      "STRIPE_WEBHOOK_SECRET": "@stripe_webhook_secret",
+      "SITE_BASE_URL": "@site_base_url",
+      "AIRTABLE_TOKEN": "@airtable_token",
+      "AIRTABLE_BASE_ID": "@airtable_base_id",
+      "AIRTABLE_TABLE_NAME": "@airtable_table_name",
+      "SESSION_SECRET": "@session_secret"
+    }
+  }
