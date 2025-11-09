@@ -18,30 +18,24 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // Check if user exists
-    const records = await base(process.env.AIRTABLE_TABLE_NAME)
-      .select({
-        filterByFormula: `{Email} = '${email}'`,
-        maxRecords: 1
-      })
-      .firstPage();
+    // Create new user
+    const newRecord = await base(process.env.AIRTABLE_TABLE_NAME).create([
+      {
+        fields: {
+          Email: email,
+          CreatedAt: new Date().toISOString(),
+          SubscriptionStatus: 'inactive'
+        }
+      }
+    ]);
 
-    if (records.length > 0) {
-      // User exists
-      return res.status(200).json({ 
-        exists: true, 
-        userId: records[0].id,
-        record: records[0].fields
-      });
-    } else {
-      // User does not exist
-      return res.status(404).json({ 
-        exists: false,
-        message: 'User not found'
-      });
-    }
+    return res.status(201).json({ 
+      success: true,
+      userId: newRecord[0].id,
+      record: newRecord[0].fields
+    });
   } catch (error) {
-    console.error('Error in check-user:', error);
+    console.error('Error in create-user:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
