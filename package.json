@@ -13,6 +13,6 @@
   "dependencies": {
     "airtable": "^0.12.2",
     "jsonwebtoken": "^9.0.2",
-    "stripe": "^19.3.0"
+    "stripe": "^14.11.0"
   }
 }
